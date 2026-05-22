@@ -251,7 +251,7 @@ namespace pylorak.Windows.WFP
 
             uint error = NativeMethods.FwpmSubLayerAdd0(_nativeEngineHandle, ref nativeStruct, IntPtr.Zero);
             if (0 != error)
-                throw new WfpException(error, "FwpmProviderAdd0");
+                throw new WfpException(error, "FwpmSubLayerAdd0");
 
             return sublayer.SublayerKey;
         }
@@ -280,7 +280,7 @@ namespace pylorak.Windows.WFP
         {
             uint error = NativeMethods.FwpmSubLayerDeleteByKey0(_nativeEngineHandle, ref subLayerKey);
             if (0 != error)
-                throw new WfpException(error, "FwpmProviderDeleteByKey0");
+                throw new WfpException(error, "FwpmSubLayerDeleteByKey0");
         }
 
         public void UnregisterFilter(Guid filterKey)

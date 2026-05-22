@@ -486,7 +486,7 @@ namespace pylorak.Windows.Services
             }
             catch (Exception e)
             {
-                WriteEventLogEntry($"Service failed to continue. {e.Message}", EventLogEntryType.Error);
+                WriteEventLogEntry($"Service failed to pause. {e.Message}", EventLogEntryType.Error);
                 FailStateChange(Status.win32ExitCode, Status.serviceSpecificExitCode);
 
                 // We re-throw the exception so that the advapi32 code can report
@@ -650,7 +650,7 @@ namespace pylorak.Windows.Services
                 Exception e = errCode switch
                 {
                     ERROR_FAILED_SERVICE_CONTROLLER_CONNECT => new InvalidOperationException("Cannot run service code as a non-service process (ERROR_FAILED_SERVICE_CONTROLLER_CONNECT)."),
-                    ERROR_SERVICE_ALREADY_RUNNING => new InvalidOperationException("The process alerady registered a service control dispatcher (ERROR_SERVICE_ALREADY_RUNNING)."),
+                    ERROR_SERVICE_ALREADY_RUNNING => new InvalidOperationException("The process already registered a service control dispatcher (ERROR_SERVICE_ALREADY_RUNNING)."),
                     _ => new Win32Exception(errCode),
                 };
                 if (Environment.UserInteractive)
