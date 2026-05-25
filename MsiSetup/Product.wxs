@@ -18,7 +18,13 @@
     <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
     <?define NgenBitness = "64bit" ?>
     <?define System32Dir = "System64Folder" ?>
-  <?else ?>
+  <?elseif $(var.Platform) = "arm64"?>
+	<?define BuildArch="arm64" ?>
+	<?define Win64 = "yes" ?>
+	<?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+	<?define NgenBitness = "64bit" ?>
+	<?define System32Dir = "System64Folder" ?>
+  <?elseif $(var.Platform) = "x86"?>
     <?define BuildArch="x86" ?>
     <?define Win64 = "no" ?>
     <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>

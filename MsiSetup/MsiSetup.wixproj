@@ -33,7 +33,18 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
-  <ItemGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|arm64' ">
+		<DefineConstants>Debug</DefineConstants>
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+		<SuppressIces>
+		</SuppressIces>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|arm64' ">
+		<OutputPath>bin\$(Configuration)\</OutputPath>
+		<IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
     <Compile Include="CustomWelcomeDlg.wxs" />
     <Compile Include="RemoteWarnDlg.wxs" />
     <Compile Include="Product.wxs" />
