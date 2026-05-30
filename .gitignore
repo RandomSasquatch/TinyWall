@@ -17,6 +17,9 @@
 /TinyWall/obj/
 /TinyWall/bin/
 
+/Microsoft.Samples/obj/
+/Microsoft.Samples/bin/
+
 /pylorak.Utilities/obj/
 /pylorak.Utilities/bin/
 

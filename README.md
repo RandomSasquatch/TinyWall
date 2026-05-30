@@ -57,7 +57,8 @@ If you prefer that, you can also build and distribute your own version of the bi
 
 ## License
 
-- TaskDialog wrapper (code in directory `pylorak.Windows\TaskDialog`) written by KevinGre ([link](https://www.codeproject.com/Articles/17026/TaskDialog-for-WinForms)) and placed under Public Domain.
+- TaskDialog wrapper (contents of `Microsoft.Samples\TaskDialog\`) written by KevinGre ([link](https://www.codeproject.com/Articles/17026/TaskDialog-for-WinForms)) and placed under Public Domain.
+- Privilege token manipulation (contents of `Microsoft.Samples\Privilege.cs`) written by Mark Novak ([link](https://learn.microsoft.com/en-us/archive/msdn-magazine/2005/march/using-net-making-privileges-reliable-secure-and-efficient)) and subject to EULA adjacent to it.
 - All other code in the repository is under the GNU GPLv3 License. See `LICENSE.txt` for more information.
 
 ## Contact

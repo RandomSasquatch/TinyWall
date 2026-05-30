@@ -7,7 +7,7 @@
     <StartArguments>/develtool</StartArguments>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="..\pylorak.Windows\TaskDialog\TaskDialogCommonDialog.cs">
+    <Compile Update="..\Microsoft.Samples\TaskDialog\TaskDialogCommonDialog.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Installer\TinyWallInstaller.cs">
