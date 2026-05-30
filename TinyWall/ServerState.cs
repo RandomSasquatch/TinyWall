@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization.Metadata;
 
@@ -22,7 +23,14 @@ namespace pylorak.TinyWall
     [DataContract(Namespace = "TinyWall")]
     public class UpdateDescriptor : ISerializable<UpdateDescriptor>
     {
-        public const string MODULE_NAME_MAINBIN = "TinyWall";
+        public static readonly string ISTALLER_ARCH_SUFFIX = RuntimeInformation.ProcessArchitecture switch
+        {
+            Architecture.X86 => "x86",
+            Architecture.X64 => "x86",   // Selects the 32-bit installer even on x64. This is intentional as long as Win32 is supported.
+            Architecture.Arm64 => "arm64",
+            _ => throw new PlatformNotSupportedException()
+        };
+        public static readonly string MODULE_NAME_MAINBIN = "TinyWall_" + ISTALLER_ARCH_SUFFIX;
         public const string MODULE_NAME_HOSTS = "HostsFile";
         public const string MODULE_NAME_DATABASE = "Database";
 

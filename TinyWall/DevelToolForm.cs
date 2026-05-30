@@ -8,6 +8,7 @@ using System.Resources;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace pylorak.TinyWall
 {
@@ -162,100 +163,69 @@ namespace pylorak.TinyWall
 
         private void btnUpdateCreate_Click(object sender, EventArgs e)
         {
-            const string PLACEHOLDER = "[Unset]";
-            const string HOSTS_PLACEHOLDER = "[HOSTS_SHA256_PLACEHOLDER]";
             const string DB_OUT_NAME = "database.def";
             const string HOSTS_OUT_NAME = "hosts.def";
             const string DESCRIPTOR_NAME = "update.json";
             const string DESCRIPTOR_TEMPLATE_NAME = "update_template.json";
-            const string MSI_FILENAME = "TinyWall-v3-Installer.msi";
+            const string MSI_FILENAME_X86 = "TinyWall_x86.msi";
+            const string MSI_FILENAME_ARM64 = "TinyWall_arm64.msi";
 
             string projectDir = txtUpdateInstallerProjectDir.Text;
-            string msiPath = Path.Combine(projectDir, @"bin\Release\" + MSI_FILENAME);
+            string msiX86Path = Path.Combine(projectDir, @"bin\Release\" + MSI_FILENAME_X86);
+            string msiArm64Path = Path.Combine(projectDir, @"bin\Release\" + MSI_FILENAME_ARM64);
             string hostsPath = Path.Combine(projectDir, @"Sources\CommonAppData\TinyWall\hosts.bck");
             string profilesPath = Path.Combine(projectDir, @"Sources\CommonAppData\TinyWall\profiles.json");
-
             string twAssemblyPath = Path.Combine(projectDir, @"Sources\ProgramFiles\TinyWall\TinyWall.exe");
 
-            void showUpdateFileNotFoundMsg(string file)
+            UpdateModule prepare_module(string component_id, string src_filepath, string dst_filename, string version, bool compress)
             {
-                MessageBox.Show(this, "File\n\n" + file + "\n\nnot found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                if (!File.Exists(src_filepath))
+                    throw new FileNotFoundException($"File\n\n{src_filepath}\n\nnot found.");
 
-            void showUpdateDirectoryNotFoundMsg(string file)
-            {
-                MessageBox.Show(this, "Directory\n\n" + file + "\n\nnot found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                string dst_filepath = Path.Combine(txtUpdateOutput.Text, dst_filename);
+                if (compress)
+                    Utils.CompressDeflate(src_filepath, dst_filepath);
+                else
+                    File.Copy(src_filepath, dst_filepath, true);
 
-            if (!File.Exists(msiPath))
-            {
-                showUpdateFileNotFoundMsg(msiPath);
-                return;
-            }
-            if (!File.Exists(hostsPath))
-            {
-                showUpdateFileNotFoundMsg(hostsPath);
-                return;
-            }
-            if (!File.Exists(profilesPath))
-            {
-                showUpdateFileNotFoundMsg(profilesPath);
-                return;
-            }
-            if (!File.Exists(twAssemblyPath))
-            {
-                showUpdateFileNotFoundMsg(twAssemblyPath);
-                return;
-            }
-            if (!Directory.Exists(txtUpdateOutput.Text))
-            {
-                showUpdateDirectoryNotFoundMsg(txtUpdateOutput.Text);
-                return;
-            }
-
-            FileVersionInfo installerInfo = FileVersionInfo.GetVersionInfo(twAssemblyPath);
-
-            var update = new UpdateDescriptor
-            {
-                Modules = new UpdateModule[3]
+                return new UpdateModule
                 {
-                    new() {
-                        Component = "TinyWall",
-                        ComponentVersion = installerInfo.ProductVersion.ToString().Trim(),
-                        DownloadHash = Hasher.HashFile(msiPath),
-                        UpdateURL = txtUpdateURL.Text + MSI_FILENAME
-                    },
-                    new()
+                    Component = component_id,
+                    ComponentVersion = version,
+                    DownloadHash = Hasher.HashFile(src_filepath),
+                    UpdateURL = txtUpdateURL.Text + dst_filename
+                };
+            }
+
+            try
+            {
+                if (!File.Exists(twAssemblyPath))
+                    throw new FileNotFoundException(string.Empty, twAssemblyPath);
+                if (!Directory.Exists(txtUpdateOutput.Text))
+                    throw new FileNotFoundException(string.Empty, txtUpdateOutput.Text);
+
+                var version_info = FileVersionInfo.GetVersionInfo(twAssemblyPath).ProductVersion.ToString().Trim();
+                var timestamp = DateTime.UtcNow.ToString("O");
+                var update = new UpdateDescriptor
+                {
+                    Modules = new UpdateModule[4]
                     {
-                        Component = "Database",
-                        ComponentVersion = PLACEHOLDER,
-                        DownloadHash = Hasher.HashFile(profilesPath),
-                        UpdateURL = txtUpdateURL.Text + DB_OUT_NAME
-                    },
-                    new()
-                    {
-                        Component = "HostsFile",
-                        ComponentVersion = PLACEHOLDER,
-                        DownloadHash = Hasher.HashFile(hostsPath),
-                        UpdateURL = txtUpdateURL.Text + HOSTS_OUT_NAME
+                        prepare_module("TinyWall_x86", msiX86Path, MSI_FILENAME_X86, version_info, false),
+                        prepare_module("TinyWall_arm64", msiArm64Path, MSI_FILENAME_ARM64, version_info, false),
+                        prepare_module("Database", profilesPath, DB_OUT_NAME, timestamp, true),
+                        prepare_module("HostsFile", hostsPath, HOSTS_OUT_NAME, timestamp, true)
                     }
-                }
-            };
+                };
 
-            File.Copy(msiPath, Path.Combine(txtUpdateOutput.Text, MSI_FILENAME), true);
-
-            string dbOut = Path.Combine(txtUpdateOutput.Text, DB_OUT_NAME);
-            Utils.CompressDeflate(profilesPath, dbOut);
-
-            string hostsOut = Path.Combine(txtUpdateOutput.Text, HOSTS_OUT_NAME);
-            Utils.CompressDeflate(hostsPath, hostsOut);
-
-            string updOut = Path.Combine(txtUpdateOutput.Text, DESCRIPTOR_NAME);
-            SerializationHelper.SerializeToFile(update, updOut);
-
-            update.Modules[2].DownloadHash = HOSTS_PLACEHOLDER;
-            updOut = Path.Combine(txtUpdateOutput.Text, DESCRIPTOR_TEMPLATE_NAME);
-            SerializationHelper.SerializeToFile(update, updOut);
+                SerializationHelper.SerializeToFile(update, Path.Combine(txtUpdateOutput.Text, DESCRIPTOR_NAME));
+                update.Modules[3].DownloadHash = "[HOSTS_SHA256_PLACEHOLDER]";
+                SerializationHelper.SerializeToFile(update, Path.Combine(txtUpdateOutput.Text, DESCRIPTOR_TEMPLATE_NAME));
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(this, $"File or directory\n\n{ex?.FileName ?? "null"}\n\nnot found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             MessageBox.Show(this, "Update created.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
