@@ -38,8 +38,6 @@
             this.btnProfileFolderBrowse = new System.Windows.Forms.Button();
             this.fbd = new System.Windows.Forms.FolderBrowserDialog();
             this.btnExit = new System.Windows.Forms.Button();
-            this.txtStrongName = new System.Windows.Forms.TextBox();
-            this.btnStrongNameBrowse = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,7 +56,6 @@
             this.txtUpdateInstallerProjectDir = new System.Windows.Forms.TextBox();
             this.btnUpdateCreate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.listPrimaries = new System.Windows.Forms.ListBox();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
@@ -86,7 +83,6 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage4.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.SuspendLayout();
@@ -169,29 +165,11 @@
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // txtStrongName
-            // 
-            this.txtStrongName.Location = new System.Drawing.Point(97, 25);
-            this.txtStrongName.Name = "txtStrongName";
-            this.txtStrongName.Size = new System.Drawing.Size(651, 20);
-            this.txtStrongName.TabIndex = 1;
-            // 
-            // btnStrongNameBrowse
-            // 
-            this.btnStrongNameBrowse.Location = new System.Drawing.Point(16, 23);
-            this.btnStrongNameBrowse.Name = "btnStrongNameBrowse";
-            this.btnStrongNameBrowse.Size = new System.Drawing.Size(75, 23);
-            this.btnStrongNameBrowse.TabIndex = 0;
-            this.btnStrongNameBrowse.Text = "Browse...";
-            this.btnStrongNameBrowse.UseVisualStyleBackColor = true;
-            this.btnStrongNameBrowse.Click += new System.EventHandler(this.btnStrongNameBrowse_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
@@ -376,17 +354,6 @@
             this.label5.Size = new System.Drawing.Size(167, 13);
             this.label5.TabIndex = 13;
             this.label5.Text = "TinyWall installer project directory:";
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.txtStrongName);
-            this.tabPage3.Controls.Add(this.btnStrongNameBrowse);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(764, 323);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Strong name";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
@@ -629,7 +596,6 @@
             this.MaximizeBox = false;
             this.Name = "DevelToolForm";
             this.Text = "TinyWall Development Helper Tool";
-            this.Load += new System.EventHandler(this.DevelToolForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -637,8 +603,6 @@
             this.tabPage2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
@@ -656,8 +620,6 @@
         private System.Windows.Forms.Button btnProfileFolderBrowse;
         private System.Windows.Forms.FolderBrowserDialog fbd;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.TextBox txtStrongName;
-        private System.Windows.Forms.Button btnStrongNameBrowse;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtAssocOutputPath;
         private System.Windows.Forms.Button btnAssocOutputBrowse;
@@ -670,7 +632,6 @@
         private System.Windows.Forms.TextBox txtAssocResult;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button btnUpdateOutputBrowse;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtUpdateOutput;

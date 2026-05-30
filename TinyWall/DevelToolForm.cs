@@ -113,34 +113,12 @@ namespace pylorak.TinyWall
             this.Close();
         }
 
-        private void btnStrongNameBrowse_Click(object sender, EventArgs e)
-        {
-            ofd.Filter = ".Net binaries (*.exe,*.dll)|*.dll;*.exe|All files (*)|*";
-            if (ofd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-            {
-                try
-                {
-                    Assembly a = Assembly.ReflectionOnlyLoadFrom(ofd.FileName);
-                    txtStrongName.Text = a.FullName;
-                }
-                catch
-                {
-                    txtStrongName.Text = "Bad assembly";
-                }
-            }
-        }
-
         private void btnAssocOutputBrowse_Click(object sender, EventArgs e)
         {
             if (fbd.ShowDialog(this) == System.Windows.Forms.DialogResult.Cancel)
                 return;
 
             txtAssocOutputPath.Text = fbd.SelectedPath;
-        }
-
-        private void DevelToolForm_Load(object sender, EventArgs e)
-        {
-            txtStrongName.Text = Assembly.GetExecutingAssembly().FullName;
         }
 
         private void btnUpdateInstallerBrowse_Click(object sender, EventArgs e)
