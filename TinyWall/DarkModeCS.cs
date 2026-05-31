@@ -790,9 +790,20 @@ namespace DarkModeForms
                         // Draw icon
                         if (isFirstSubItem)
                         {
-                            e.Graphics.DrawImage(e.Item.ImageList.Images[e.Item.ImageIndex], contentBounds.Location);
-                            textBounds.X += e.Item.ImageList.ImageSize.Width;
-                            textBounds.Width -= e.Item.ImageList.ImageSize.Width;
+                            if (e.Item.ImageList is not null)
+                            {
+                                Image? img = null;
+                                if ((e.Item.ImageIndex >= 0) && (e.Item.ImageIndex < e.Item.ImageList.Images.Count))
+                                    img = e.Item.ImageList.Images[e.Item.ImageIndex];
+                                else if (e.Item.ImageKey is not null)
+                                    img = e.Item.ImageList.Images[e.Item.ImageKey];
+
+                                if (img is not null)
+                                    e.Graphics.DrawImage(img, contentBounds.Location);
+
+                                textBounds.X += e.Item.ImageList.ImageSize.Width;
+                                textBounds.Width -= e.Item.ImageList.ImageSize.Width;
+                            }
                         }
 
                         // Draw text
