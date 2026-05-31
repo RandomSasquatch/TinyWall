@@ -494,20 +494,19 @@ namespace DarkModeForms
             control.ControlAdded -= controlControlAdded; //prevent uncontrolled multiple addition
             control.ControlAdded += controlControlAdded;
 
-            var propBackColor = control.GetType().GetProperty("BackColor");
-            bool backColorChangeAllowed = (propBackColor is not null) && ((Color)propBackColor.GetValue(control) != Color.Transparent);
-            if (backColorChangeAllowed) control.GetType().GetProperty("BackColor").SetValue(control, OScolors.Control);
-            control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
+            bool isBackColorTransparent = (control.BackColor == Color.Transparent);
+            if (!isBackColorTransparent) control.BackColor = OScolors.Control;
+            control.ForeColor = OScolors.TextActive;
 
             /* Here we Finetune individual Controls  */
             if ((control is Label lbl) && (control is not LinkLabel))
             {
-                if (backColorChangeAllowed) control.GetType().GetProperty("BackColor").SetValue(control, control.Parent.BackColor);
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
+                if (!isBackColorTransparent) control.BackColor = control.Parent.BackColor;
+                lbl.BorderStyle = BorderStyle.None;
                 control.Paint += (sender, eargs) =>
                 {
                     using var e = eargs;
-                    if (IsDarkMode && backColorChangeAllowed)
+                    if (IsDarkMode && !isBackColorTransparent)
                     {
                         e.Graphics.Clear(control.Parent.BackColor);
                         e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
@@ -519,25 +518,24 @@ namespace DarkModeForms
                     }
                 };
             }
-            if (control is LinkLabel)
+            if (control is LinkLabel linkLbl)
             {
-                if (backColorChangeAllowed) control.GetType().GetProperty("BackColor").SetValue(control, control.Parent.BackColor);
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
-                control.GetType().GetProperty("LinkColor")?.SetValue(control, OScolors.TextInAccent);
-                control.GetType().GetProperty("VisitedLinkColor")?.SetValue(control, OScolors.Primary);
+                if (!isBackColorTransparent) control.BackColor = control.Parent.BackColor;
+                linkLbl.BorderStyle = BorderStyle.None;
+                linkLbl.LinkColor = OScolors.TextInAccent;
+                linkLbl.VisitedLinkColor = OScolors.Primary;
             }
-            if (control is TextBox)
+            if (control is TextBox txtBox)
             {
                 //SetRoundBorders(tb, 4, OScolors.SurfaceDark, 1);
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BStyle);
+                txtBox.BorderStyle = BStyle;
             }
             if (control is NumericUpDown)
             {
                 SetWindowTheme(control.Handle, IsDarkMode ? "DarkMode_ItemsView" : "ClearMode_ItemsView", null);
             }
-            if (control is Button)
+            if (control is Button button)
             {
-                var button = control as Button;
                 button.FlatStyle = IsDarkMode ? FlatStyle.Flat : FlatStyle.Standard;
                 button.FlatAppearance.CheckedBackColor = OScolors.Accent;
                 button.BackColor = OScolors.Control;
@@ -567,13 +565,12 @@ namespace DarkModeForms
                 // Apply Windows Color Mode:
                 SetWindowTheme(control.Handle, IsDarkMode ? "DarkMode_CFD" : "ClearMode_CFD", null);
             }
-            if (control is Panel)
+            if (control is Panel panel)
             {
-                var panel = control as Panel;
                 // Process the panel within the container
                 panel.BackColor = OScolors.Background;
                 panel.BorderStyle = BorderStyle.None;
-                if (!(panel.Parent is TabControl) || !(panel.Parent is TableLayoutPanel))
+                if ((panel.Parent is not TabControl) || (panel.Parent is not TableLayoutPanel))
                 {
                     if (RoundedPanels)
                     {
@@ -583,30 +580,27 @@ namespace DarkModeForms
             }
             if (control is GroupBox)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
-                control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
+                control.BackColor = control.Parent.BackColor;
+                control.ForeColor = OScolors.TextActive;
                 control.Paint += (sender, eargs) =>
                 {
                     using var e = eargs;
                     if (control.Enabled == false && IsDarkMode)
                     {
-                        var radio = (sender as GroupBox);
-                        Brush B = new SolidBrush(control.ForeColor);
-
-                        e.Graphics.DrawString(radio.Text, radio.Font,
-                          B, new PointF(6, 0));
+                        var radio = (sender as GroupBox)!;
+                        using Brush B = new SolidBrush(control.ForeColor);
+                        e.Graphics.DrawString(radio.Text, radio.Font, B, new PointF(6, 0));
                     }
                 };
             }
-            if (control is TableLayoutPanel)
+            if (control is TableLayoutPanel tblLayoutPanel)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
-                control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextInactive);
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
+                tblLayoutPanel.BackColor = control.Parent.BackColor;
+                tblLayoutPanel.ForeColor = OScolors.TextInactive;
+                tblLayoutPanel.BorderStyle = BorderStyle.None;
             }
-            if (control is TabControl)
+            if (control is TabControl tab)
             {
-                var tab = control as TabControl;
                 tab.Appearance = TabAppearance.Normal;
                 tab.DrawMode = TabDrawMode.OwnerDrawFixed;
                 tab.DrawItem += (sender, e) =>
@@ -652,87 +646,82 @@ namespace DarkModeForms
             //	control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextInactive);
             //	control.GetType().GetProperty("LineColor")?.SetValue(control, OScolors.Background);
             //}
-            if (control is PictureBox)
+            if (control is PictureBox picBox)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
-                control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
+                picBox.BackColor = control.Parent.BackColor;
+                picBox.ForeColor = OScolors.TextActive;
+                picBox.BorderStyle = BorderStyle.None;
             }
             if (control is CheckBox)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
+                control.BackColor = control.Parent.BackColor;
                 control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
                 control.Paint += (sender, eargs) =>
                 {
                     using var e = eargs;
                     if (control.Enabled == false && IsDarkMode)
                     {
-                        var radio = (sender as CheckBox);
-                        Brush B = new SolidBrush(control.ForeColor);
-
-                        e.Graphics.DrawString(radio.Text, radio.Font,
-                          B, new PointF(16, 0));
+                        var radio = (sender as CheckBox)!;
+                        using Brush B = new SolidBrush(control.ForeColor);
+                        e.Graphics.DrawString(radio.Text, radio.Font, B, new PointF(16, 0));
                     }
                 };
             }
             if (control is RadioButton)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
+                control.BackColor = control.Parent.BackColor;
                 control.ForeColor = control.Enabled ? OScolors.TextActive : OScolors.TextInactive;
                 control.Paint += (sender, eargs) =>
                 {
                     using var e = eargs;
                     if (control.Enabled == false && IsDarkMode)
                     {
-                        var radio = (sender as RadioButton);
-                        Brush B = new SolidBrush(control.ForeColor);
-
-                        e.Graphics.DrawString(radio.Text, radio.Font,
-                          B, new PointF(16, 0));
+                        var radio = (sender as RadioButton)!;
+                        using Brush B = new SolidBrush(control.ForeColor);
+                        e.Graphics.DrawString(radio.Text, radio.Font, B, new PointF(16, 0));
                     }
                 };
             }
-            if (control is MenuStrip)
+            if (control is MenuStrip mnuStrip)
             {
-                (control as MenuStrip).RenderMode = ToolStripRenderMode.Professional;
-                (control as MenuStrip).Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons)
+                mnuStrip.RenderMode = ToolStripRenderMode.Professional;
+                mnuStrip.Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons)
                 {
                     MyColors = OScolors
                 };
             }
-            if (control is ToolStrip)
+            if (control is ToolStrip toolStrip)
             {
-                (control as ToolStrip).RenderMode = ToolStripRenderMode.Professional;
-                (control as ToolStrip).Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons) { MyColors = OScolors };
+                toolStrip.RenderMode = ToolStripRenderMode.Professional;
+                toolStrip.Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons) { MyColors = OScolors };
             }
             if (control is ToolStripPanel) //<- empty area around ToolStrip
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
+                control.BackColor = control.Parent.BackColor;
             }
-            if (control is ToolStripDropDown)
+            if (control is ToolStripDropDown toolStripDD)
             {
-                (control as ToolStripDropDown).Opening -= Tsdd_Opening; //just to make sure
-                (control as ToolStripDropDown).Opening += Tsdd_Opening;
+                toolStripDD.Opening -= Tsdd_Opening; //just to make sure
+                toolStripDD.Opening += Tsdd_Opening;
             }
-            if (control is ToolStripDropDownMenu)
+            if (control is ToolStripDropDownMenu toolStripDDN)
             {
-                (control as ToolStripDropDownMenu).Opening -= Tsdd_Opening; //just to make sure
-                (control as ToolStripDropDownMenu).Opening += Tsdd_Opening;
+                toolStripDDN.Opening -= Tsdd_Opening; //just to make sure
+                toolStripDDN.Opening += Tsdd_Opening;
             }
-            if (control is ContextMenuStrip)
+            if (control is ContextMenuStrip ctxMnuStrip)
             {
-                (control as ContextMenuStrip).RenderMode = ToolStripRenderMode.Professional;
-                (control as ContextMenuStrip).Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons) { MyColors = OScolors };
-                (control as ContextMenuStrip).Opening -= Tsdd_Opening; //just to make sure
-                (control as ContextMenuStrip).Opening += Tsdd_Opening;
+                ctxMnuStrip.RenderMode = ToolStripRenderMode.Professional;
+                ctxMnuStrip.Renderer = new MyRenderer(new CustomColorTable(OScolors), ColorizeIcons) { MyColors = OScolors };
+                ctxMnuStrip.Opening -= Tsdd_Opening; //just to make sure
+                ctxMnuStrip.Opening += Tsdd_Opening;
             }
             if (control is MdiClient) //<- empty area of MDI container window
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, OScolors.Surface);
+                control.BackColor = OScolors.Surface;
             }
-            if (control is PropertyGrid)
+            if (control is PropertyGrid pGrid)
             {
-                var pGrid = control as PropertyGrid;
                 pGrid.BackColor = OScolors.Control;
                 pGrid.ViewBackColor = OScolors.Control;
                 pGrid.LineColor = OScolors.Surface;
@@ -741,12 +730,10 @@ namespace DarkModeForms
                 pGrid.CategoryForeColor = OScolors.TextActive;
                 pGrid.CategorySplitterColor = OScolors.ControlLight;
             }
-            if (control is ListView)
+            if (control is ListView lView)
             {
-                var lView = control as ListView;
                 if (IsDarkMode) lView.GridLines = false;
                 SetWindowTheme(control.Handle, IsDarkMode ? "DarkMode_Explorer" : "ClearMode_Explorer", null);
-
 
                 if (lView.View == View.Details)
                 {
@@ -837,9 +824,9 @@ namespace DarkModeForms
                 }
 
             }
-            if (control is TreeView)
+            if (control is TreeView treeView)
             {
-                control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
+                treeView.BorderStyle = BorderStyle.None;
                 //tree.DrawNode += (object? sender, DrawTreeNodeEventArgs e) =>
                 //{
                 //  if (e.Node.ImageIndex != -1)
@@ -858,9 +845,8 @@ namespace DarkModeForms
                 //  tree.Invalidate();
                 //};
             }
-            if (control is DataGridView)
+            if (control is DataGridView grid)
             {
-                var grid = control as DataGridView;
                 grid.EnableHeadersVisualStyles = false;
                 grid.BorderStyle = BorderStyle.FixedSingle;
                 grid.BackgroundColor = OScolors.Control;
@@ -870,7 +856,7 @@ namespace DarkModeForms
                 grid.Paint += (sender, eargs) =>
                 {
                     using var e = eargs;
-                    DataGridView dgv = sender as DataGridView;
+                    DataGridView dgv = (DataGridView)sender;
 
                     //get the value of dgv.HorizontalScrollBar protected property
                     HScrollBar hs = (HScrollBar)typeof(DataGridView).GetProperty("HorizontalScrollBar", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(dgv);
@@ -882,7 +868,7 @@ namespace DarkModeForms
                         if (vs.Visible)
                         {
                             //only when both the scrollbars are visible, do the actual painting
-                            Brush brush = new SolidBrush(OScolors.SurfaceDark);
+                            using Brush brush = new SolidBrush(OScolors.SurfaceDark);
                             var w = vs.Size.Width;
                             var h = hs.Size.Height;
                             e.Graphics.FillRectangle(brush, dgv.ClientRectangle.X + dgv.ClientRectangle.Width - w - 1,
@@ -1209,7 +1195,7 @@ namespace DarkModeForms
             string Mode = IsDarkMode ? "DarkMode_Explorer" : "ClearMode_Explorer";
 
             if (DwmSetWindowAttribute(control.Handle, (int)DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1, DarkModeOn, 4) != 0)
-                DwmSetWindowAttribute(control.Handle, (int)DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, DarkModeOn, 4);
+                _ = DwmSetWindowAttribute(control.Handle, (int)DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, DarkModeOn, 4);
 
             foreach (Control child in control.Controls)
             {
