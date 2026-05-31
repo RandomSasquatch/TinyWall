@@ -496,14 +496,15 @@ namespace DarkModeForms
 
             string Mode = IsDarkMode ? "DarkMode_Explorer" : "ClearMode_Explorer";
             SetWindowTheme(control.Handle, Mode, null); //<- Attempts to apply Dark Mode using Win32 API if available.
-
-            control.GetType().GetProperty("BackColor")?.SetValue(control, OScolors.Control);
+            var propBackColor = control.GetType().GetProperty("BackColor");
+            bool backColorChangeAllowed = (propBackColor is not null) && ((Color)propBackColor.GetValue(control) != Color.Transparent);
+            if (backColorChangeAllowed) control.GetType().GetProperty("BackColor").SetValue(control, OScolors.Control);
             control.GetType().GetProperty("ForeColor")?.SetValue(control, OScolors.TextActive);
 
             /* Here we Finetune individual Controls  */
             if (control is Label lbl)
             {
-                control.GetType().GetProperty("BackColor")?.SetValue(control, control.Parent.BackColor);
+                if (backColorChangeAllowed) control.GetType().GetProperty("BackColor").SetValue(control, control.Parent.BackColor);
                 control.GetType().GetProperty("BorderStyle")?.SetValue(control, BorderStyle.None);
                 control.Paint += (sender, e) =>
                 {
@@ -626,7 +627,6 @@ namespace DarkModeForms
                         for (int i = 0; i < tab.TabPages.Count; i++)
                         {
                             TabPage tabPage = tab.TabPages[i];
-                            tabPage.BackColor = OScolors.Surface;
                             tabPage.BorderStyle = BorderStyle.FixedSingle;
 
                             tabPage.ControlAdded -= tabPageAdded; //prevent uncontrolled multiple addition
@@ -747,6 +747,7 @@ namespace DarkModeForms
             if (control is ListView)
             {
                 var lView = control as ListView;
+                if (IsDarkMode) lView.GridLines = false;
                 //Mode = IsDarkMode ? "DarkMode_ItemsView" : "ClearMode_ItemsView";
                 Mode = IsDarkMode ? "DarkMode_Explorer" : "ClearMode_Explorer";
                 SetWindowTheme(control.Handle, Mode, null);
