@@ -255,6 +255,9 @@
     <EmbeddedResource Update="AppFinderForm.ru.resx">
       <DependentUpon>AppFinderForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="AppFinderForm.uk.resx">
+      <DependentUpon>AppFinderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="AppFinderForm.zh.resx">
       <DependentUpon>AppFinderForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -306,6 +309,9 @@
     <EmbeddedResource Update="ApplicationExceptionForm.zh.resx">
       <DependentUpon>ApplicationExceptionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="ApplicationExceptionForm.uk.resx">
+      <DependentUpon>ApplicationExceptionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="ConnectionsForm.bg.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,6 +355,9 @@
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="ConnectionsForm.ru.resx">
+      <DependentUpon>ConnectionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ConnectionsForm.uk.resx">
       <DependentUpon>ConnectionsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="ConnectionsForm.zh.resx">
@@ -399,6 +408,9 @@
     <EmbeddedResource Update="MainForm.ru.resx">
       <DependentUpon>TinyWallController.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="MainForm.uk.resx">
+      <DependentUpon>TinyWallController.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="MainForm.zh.resx">
       <DependentUpon>TinyWallController.cs</DependentUpon>
     </EmbeddedResource>
@@ -445,6 +457,9 @@
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="PasswordForm.ru.resx">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="PasswordForm.uk.resx">
       <DependentUpon>PasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="PasswordForm.zh.resx">
@@ -495,6 +510,9 @@
     <EmbeddedResource Update="Processes.ru.resx">
       <DependentUpon>Processes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="Processes.uk.resx">
+      <DependentUpon>Processes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Processes.zh.resx">
       <DependentUpon>Processes.cs</DependentUpon>
     </EmbeddedResource>
@@ -541,6 +559,9 @@
       <DependentUpon>Services.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Services.ru.resx">
+      <DependentUpon>Services.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Services.uk.resx">
       <DependentUpon>Services.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Services.zh.resx">
@@ -591,6 +612,9 @@
     <EmbeddedResource Update="SettingsForm.ru.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Update="SettingsForm.uk.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="SettingsForm.zh.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -609,12 +633,23 @@
     <EmbeddedResource Update="UwpPackagesForm.hu.resx">
       <DependentUpon>UwpPackagesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="UwpPackagesForm.ru.resx">
+    <EmbeddedResource Update="UwpPackagesForm.it.resx">
+      <DependentUpon>UwpPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UwpPackagesForm.ja.resx">
+      <DependentUpon>UwpPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UwpPackagesForm.ko.resx">
       <DependentUpon>UwpPackagesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="UwpPackagesForm.pt-BR.resx">
       <DependentUpon>UwpPackagesForm.cs</DependentUpon>
     </EmbeddedResource>
-    
+    <EmbeddedResource Update="UwpPackagesForm.ru.resx">
+      <DependentUpon>UwpPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="UwpPackagesForm.uk.resx">
+      <DependentUpon>UwpPackagesForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

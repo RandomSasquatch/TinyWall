@@ -581,6 +581,7 @@ namespace pylorak.TinyWall
             comboLanguages.Items.Add(new IdWithName("tr", "Türkçe"));
             comboLanguages.Items.Add(new IdWithName("ja", "日本語"));
             comboLanguages.Items.Add(new IdWithName("ko", "한국어"));
+            comboLanguages.Items.Add(new IdWithName("uk", "Українська"));
             comboLanguages.Items.Add(new IdWithName("zh", "汉语"));
 
             comboUiTheme.Items.Add(new IdWithName("auto", Resources.Messages.UiThemeAuto));

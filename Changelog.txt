@@ -17,6 +17,7 @@ TinyWall Changelog
 - Fix raw socket allow rules may not get installed
 - Fix updated application database only reflected in GUI after a restart
 - Remove language-specific layout customizations
+- Add Ukrainian localization (prodbysanya)
 - Update Korean localization (Jaehyung L.)
 
 ---------------------

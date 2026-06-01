@@ -16,6 +16,7 @@ Portuguese - Milton Chaves de Almeida
 Russian - Дмитрий Вожегов, Kuznetsov Igor
 Spanish - Toño Puente Garcia, David Acevedo, Xak
 Turkish - Hakan Ateş
+Ukrainian - prodbysanya
 
 Icon resources:
 -----------------------------------------------
