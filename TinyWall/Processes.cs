@@ -2,6 +2,7 @@
 using pylorak.Utilities;
 using pylorak.Windows;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -16,13 +17,17 @@ namespace pylorak.TinyWall
         private readonly AsyncIconScanner IconScanner;
         private readonly Size IconSize = new((int)Math.Round(16 * Utils.DpiScalingFactor), (int)Math.Round(16 * Utils.DpiScalingFactor));
         private readonly DarkModeCS? DarkMode;
+        private readonly WmPaintFilter? ListRepaintFilter;
 
         internal ProcessesForm(bool multiSelect)
         {
             InitializeComponent();
             Utils.SetRightToLeft(this);
             if (Utils.IsDarkModeActive(ActiveConfig.Controller))
+            {
                 this.DarkMode = new(this) { ColorMode = DarkModeCS.DisplayMode.DarkMode };
+                this.ListRepaintFilter = new WmPaintFilter(listView);
+            }
             this.IconList.ImageSize = IconSize;
             this.listView.MultiSelect = multiSelect;
             this.Icon = Resources.Icons.firewall;

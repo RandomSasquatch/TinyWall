@@ -1,6 +1,8 @@
 ﻿using DarkModeForms;
 using Microsoft.Win32;
+using pylorak.Windows;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ServiceProcess;
 using System.Windows.Forms;
@@ -11,7 +13,8 @@ namespace pylorak.TinyWall
     {
         private string? SelectedServiceName;
         private string? SelectedServiceExec;
-        private readonly DarkModeCS DarkMode;
+        private readonly DarkModeCS? DarkMode;
+        private readonly WmPaintFilter? ListRepaintFilter;
 
         internal static ServiceSubject? ChooseService(IWin32Window? parent = null)
         {
@@ -31,7 +34,10 @@ namespace pylorak.TinyWall
             InitializeComponent();
             Utils.SetRightToLeft(this);
             if (Utils.IsDarkModeActive(ActiveConfig.Controller))
+            {
                 this.DarkMode = new(this) { ColorMode = DarkModeCS.DisplayMode.DarkMode };
+                this.ListRepaintFilter = new WmPaintFilter(listView);
+            }
             this.Icon = Resources.Icons.firewall;
             this.btnOK.Image = GlobalInstances.ApplyBtnIcon;
             this.btnCancel.Image = GlobalInstances.CancelBtnIcon;

@@ -19,6 +19,7 @@ namespace pylorak.TinyWall
         private readonly AsyncIconScanner IconScanner;
         private readonly Size IconSize = new((int)Math.Round(16 * Utils.DpiScalingFactor), (int)Math.Round(16 * Utils.DpiScalingFactor));
         private readonly DarkModeCS? DarkMode;
+        private readonly WmPaintFilter? ListRepaintFilter;
         private bool EnableListUpdate = false;
 
         internal ConnectionsForm(TinyWallController ctrl)
@@ -26,7 +27,10 @@ namespace pylorak.TinyWall
             InitializeComponent();
             Utils.SetRightToLeft(this);
             if (Utils.IsDarkModeActive(ActiveConfig.Controller))
+            {
                 this.DarkMode = new(this) { ColorMode = DarkModeCS.DisplayMode.DarkMode };
+                this.ListRepaintFilter = new WmPaintFilter(list);
+            }
             this.IconList.ImageSize = IconSize;
             this.Icon = Resources.Icons.firewall;
             this.Controller = ctrl;

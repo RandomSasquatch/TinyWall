@@ -2,6 +2,7 @@
 using pylorak.Utilities;
 using pylorak.Windows;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -36,6 +37,7 @@ namespace pylorak.TinyWall
         private readonly List<ListViewItem> ExceptionItems = new();
         private readonly List<ListViewItem> FilteredExceptionItems = new();
         private readonly DarkModeCS? DarkMode;
+        private readonly WmPaintFilter? ListRepaintFilter;
         private bool LoadingSettings;
         private string? m_NewPassword;
         private Size IconSize = new((int)Math.Round(16 * Utils.DpiScalingFactor), (int)Math.Round(16 * Utils.DpiScalingFactor));
@@ -45,7 +47,10 @@ namespace pylorak.TinyWall
             InitializeComponent();
             Utils.SetRightToLeft(this);
             if (Utils.IsDarkModeActive(controller))
+            {
                 this.DarkMode = new(this) { ColorMode = DarkModeCS.DisplayMode.DarkMode };
+                this.ListRepaintFilter = new WmPaintFilter(listApplications);
+            }
             this.IconList.ImageSize = IconSize;
             this.Icon = Resources.Icons.firewall;
             this.btnOK.Image = GlobalInstances.ApplyBtnIcon;
