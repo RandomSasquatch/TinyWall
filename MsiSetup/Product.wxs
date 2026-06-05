@@ -8,6 +8,7 @@
   <?define Manufacturer="Károly Pados" ?>
   <?define Description="A non-intrusive firewall solution." ?>
   <?define ProductURL="http://tinywall.pados.hu" ?>
+  <?define ReleaseNotesURL="https://raw.githubusercontent.com/pylorak/TinyWall/refs/heads/master/Changelog.txt" ?>
   <?define ProductVersion="!(bind.fileVersion.TinyWallEXE)" ?>
   <?define OldestUpgradeableVersion="3.0.0.0" ?>
 
@@ -271,9 +272,6 @@
             </Component>
           </Directory>
           <Directory Id="DOCDIR" Name="doc">
-            <Component Id="DocWhatsNewComp" Win64="$(var.Win64)">
-              <File Id="DocWhatsNewFile" Source="Sources\ProgramFiles\TinyWall\doc\whatsnew.html" Vital="yes" KeyPath="yes" Checksum="yes" />
-            </Component>
             <Component Id="DocFAQComp" Win64="$(var.Win64)">
               <File Id="DocFAQFile" Source="Sources\ProgramFiles\TinyWall\doc\faq.html" Vital="yes" KeyPath="yes" Checksum="yes" />
             </Component>
@@ -281,22 +279,8 @@
               <Component Id="DocCss00Comp" Win64="$(var.Win64)">
                 <File Id="DocCss00File" Source="Sources\ProgramFiles\TinyWall\doc\css\1140.css" Vital="yes" KeyPath="yes" Checksum="yes" />
               </Component>
-              <Component Id="DocCss01Comp" Win64="$(var.Win64)">
-                <File Id="DocCss01File" Source="Sources\ProgramFiles\TinyWall\doc\css\ie.css" Vital="yes" KeyPath="yes" Checksum="yes" />
-              </Component>
               <Component Id="DocCss02Comp" Win64="$(var.Win64)">
                 <File Id="DocCss02File" Source="Sources\ProgramFiles\TinyWall\doc\css\style.css" Vital="yes" KeyPath="yes" Checksum="yes" />
-              </Component>
-            </Directory>
-            <Directory Id="DOCIMGDIR" Name="img">
-              <Component Id="DocImg00Comp" Win64="$(var.Win64)">
-                <File Id="DocImg00Comp" Source="Sources\ProgramFiles\TinyWall\doc\img\exception_details.png" Vital="yes" KeyPath="yes" Checksum="yes" />
-              </Component>
-              <Component Id="DocImg01Comp" Win64="$(var.Win64)">
-                <File Id="DocImg01Comp" Source="Sources\ProgramFiles\TinyWall\doc\img\tray_menu.png" Vital="yes" KeyPath="yes" Checksum="yes" />
-              </Component>
-              <Component Id="DocImg02Comp" Win64="$(var.Win64)">
-                <File Id="DocImg02Comp" Source="Sources\ProgramFiles\TinyWall\doc\img\unblock_task_dial.png" Vital="yes" KeyPath="yes" Checksum="yes" />
               </Component>
             </Directory>
           </Directory>
@@ -337,8 +321,8 @@
               <ShortcutProperty Key="{9F4C2855-9F79-4B39-A8D0-E1D42DE1D5F3}, 8" Value="1" />                          <!-- System.AppUserModel.ExcludeFromShowInNewInstall -->
             </Shortcut>
             <Shortcut Id="FAQShortcut" Directory="ProgramMenuDir" Name="FAQ" Target="[INSTALLDIR]doc\faq.html"/>
-            <Shortcut Id="WhatsNewShortcut" Directory="ProgramMenuDir" Name="What's new" Target="[INSTALLDIR]doc\whatsnew.html"/>
             <util:InternetShortcut Id="WebsiteShortcut" Name="Website" Target="$(var.ProductURL)"/>
+            <util:InternetShortcut Id="ReleaseNotesShortcut" Name="Release Notes" Target="$(var.ReleaseNotesURL)"/>
             <!-- <Shortcut Id="UninstallProduct"
                       Name="Uninstall TinyWall"
                       Target="[$(var.System32Dir)]msiexec.exe"
@@ -395,14 +379,9 @@
 
     <!-- Documentation groupping -->
     <ComponentGroup Id="Documentation">
-      <ComponentRef Id="DocWhatsNewComp"/>
       <ComponentRef Id="DocFAQComp"/>
       <ComponentRef Id="DocCss00Comp"/>
-      <ComponentRef Id="DocCss01Comp"/>
       <ComponentRef Id="DocCss02Comp"/>
-      <ComponentRef Id="DocImg00Comp"/>
-      <ComponentRef Id="DocImg01Comp"/>
-      <ComponentRef Id="DocImg02Comp"/>
     </ComponentGroup>
     
   </Fragment>
