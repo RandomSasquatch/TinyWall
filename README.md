@@ -5,7 +5,7 @@
   <p align="center">
     A free, lightweight and non-intrusive firewall
     <br />
-    <a href="https://tinywall.pados.hu"><strong>Website »</strong></a>
+    <a href="https://tinywall.pados.hu"><strong>Website »</strong></a> | <a href="https://tinywall.pados.hu/download.php"><strong>Download »</strong></a>
   </p>
 </div>
 
@@ -13,7 +13,7 @@
 
 TinyWall is a free, lightweight, and non-intrusive, secure by default firewall for Windows. Built to just simply sit in your system tray, quietly blocking any application you did not explicitly allow network access. TinyWall installs no kernel drivers, so it cannot negatively influence system stability. It also repects your privacy and collects absolutely no data about the user or their computer.
 
-This is the official source code of TinyWall as found at its [website](https://tinywall.pados.hu).
+This repository houses the source code of TinyWall as found at its [official website](https://tinywall.pados.hu).
 
 ## How to build
 
@@ -62,7 +62,7 @@ If your goal with forking is not code contribution but to build and distribute y
 
 | Contents in                     | Maintainer   | Origin                                                                                                                                | License                  |
 |---------------------------------|--------------|---------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
-| Microsoft.Samples\TaskDialog\   | KevinGre     | [link](https://www.codeproject.com/Articles/17026/TaskDialog-for-WinForms)                                                            | Public Domain            |
+| Microsoft.Samples\TaskDialog\   | KevinGre     | [link](https://www.codeproject.com/Articles/17026/TaskDialog-for-WinForms)  ([archive.org](https://web.archive.org/web/20250211033156/https://www.codeproject.com/Articles/17026/TaskDialog-for-WinForms))                                                          | Public Domain            |
 | Microsoft.Samples\Privilege.cs  | Mark Novak   | [link](https://learn.microsoft.com/en-us/archive/msdn-magazine/2005/march/using-net-making-privileges-reliable-secure-and-efficient)  | see Privilege.cs.LICENSE |
 | DarkModeCS.cs                   | BlueMystic   | [link](https://github.com/BlueMystical/Dark-Mode-Forms)                                                                               | MIT                      |
 | Everything else                 | Károly Pados | [this repo](https://github.com/pylorak/TinyWall)                                                                                      | GPLv3                    |

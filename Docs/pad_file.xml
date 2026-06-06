@@ -34,10 +34,10 @@
 	</Company_Info>
 	<Program_Info>
 		<Program_Name>TinyWall</Program_Name>
-		<Program_Version>3.4.1</Program_Version>
-		<Program_Release_Month>04</Program_Release_Month>
-		<Program_Release_Day>06</Program_Release_Day>
-		<Program_Release_Year>2025</Program_Release_Year>
+		<Program_Version>3.5.1</Program_Version>
+		<Program_Release_Month>06</Program_Release_Month>
+		<Program_Release_Day>07</Program_Release_Day>
+		<Program_Release_Year>2026</Program_Release_Year>
 		<Program_Cost_Dollars>0</Program_Cost_Dollars>
 		<Program_Cost_Other_Code />
 		<Program_Cost_Other />
@@ -45,15 +45,15 @@
 		<Program_Release_Status>Major Update</Program_Release_Status>
 		<Program_Install_Support>Install and Uninstall</Program_Install_Support>
 		<Program_OS_Support>Win10,Win11</Program_OS_Support>
-		<Program_Language>Bulgarian,Chinese,Czech,English,Dutch,French,German,Hebrew,Hungarian,Italian,Japanese,Korean,Polish,Portuguese,Russian,Spanish,Turkish</Program_Language>
-		<Program_Change_Info>See https://tinywall.pados.hu/changelog.txt</Program_Change_Info>
+		<Program_Language>Bulgarian,Chinese,Czech,English,Dutch,French,German,Hebrew,Hungarian,Italian,Japanese,Korean,Polish,Portuguese,Russian,Spanish,Turkish,Ukrainian</Program_Language>
+		<Program_Change_Info>See https://raw.githubusercontent.com/pylorak/TinyWall/refs/heads/master/Changelog.txt</Program_Change_Info>
 		<Program_Specific_Category>Utilities</Program_Specific_Category>
 		<Program_Category_Class>Security &amp; Privacy::Access Control</Program_Category_Class>
 		<Program_System_Requirements>Microsoft .Net Framework 4.8</Program_System_Requirements>
 		<File_Info>
-			<File_Size_Bytes>1888256</File_Size_Bytes>
-			<File_Size_K>1844</File_Size_K>
-			<File_Size_MB>1.80</File_Size_MB>
+			<File_Size_Bytes>1802240</File_Size_Bytes>
+			<File_Size_K>1760</File_Size_K>
+			<File_Size_MB>1.71</File_Size_MB>
 		</File_Info>
 		<Expire_Info>
 			<Has_Expire_Info>N</Has_Expire_Info>
@@ -97,7 +97,7 @@ Other key features include:
 			<Application_XML_File_URL>https://tinywall.pados.hu/PAD/pad_file.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>https://tinywall.pados.hu/ccount/click.php?id=4</Primary_Download_URL>
+			<Primary_Download_URL>https://tinywall.pados.hu/ccount/click.php?id=5</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
